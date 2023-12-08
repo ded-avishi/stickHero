@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickherofx.HelloController">
+   <children>
+      <ImageView fitHeight="573.0" fitWidth="945.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@gamebg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="276.0" layoutY="47.0" text="CHOOSE YOUR HERO">
+         <font>
+            <Font name="Impact" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="84.0" fitWidth="158.0" layoutX="199.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Asset%201sheep.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="131.0" fitWidth="138.0" layoutX="526.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Asset%202goat.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc330096" height="200.0" layoutX="195.0" layoutY="353.0" stroke="TRANSPARENT" strokeType="INSIDE" width="163.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cc330096" height="200.0" layoutX="501.0" layoutY="353.0" stroke="TRANSPARENT" strokeType="INSIDE" width="163.0" />
+      <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToScene1" prefHeight="69.0" prefWidth="70.0" style="-fx-background-color: #cc3300; -fx-background-radius: 100;" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="29.0" />
+         </font>
+      </Button>
+      <Polygon fill="#e1e1e1" layoutX="78.0" layoutY="10.0" points="-43.5000114440918, 39.59999465942383, -11.099990844726562, 56.399993896484375, -11.099990844726562, 20.599994659423828" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>
