@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
         Parent root=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
         Scene scene = new Scene(root);
         stage.setTitle("StickHero");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
