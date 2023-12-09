@@ -24,6 +24,8 @@ import java.util.Objects;
 
 public class HelloController {
     private Stick stickBeingUsed;
+    private double minHeightStick;
+    private double maxHeightStick;
     private Pillar pillar1;
     private Pillar pillar2;
     private Pillar pillar3;
@@ -125,7 +127,7 @@ public class HelloController {
         // ---------------------------------------------------------------------
 
         // key press detection==================================================
-        boolean KeyState;
+//        boolean KeyState;
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                                   @Override
                                   public void handle(KeyEvent keyEvent) {
@@ -137,6 +139,20 @@ public class HelloController {
                                           case ESCAPE -> {
                                               // pausebutton implementation
                                           }
+                                          case K -> {
+                                              // Flip the character vertically about the stick
+//                                              double flipFactor = player.getImageView().getScaleY() * -1;
+//                                              player.getImageView().setScaleY(flipFactor);
+//
+//                                              // Adjust the character position to be below the stick
+//                                              if (flipFactor < 0) {
+//                                                  player.getImageView().setY(stickBeingUsed.getY() + stickBeingUsed.getHeight());
+//                                              } else {
+//                                                  // If not flipped, set the character's position above the stick
+//                                                  player.getImageView().setY(stickBeingUsed.getY() - player.getImageView().getFitHeight());
+//                                              }
+
+                                          }
                                       }
                                   }
                               }
@@ -147,7 +163,11 @@ public class HelloController {
                 switch (keyEvent.getCode()){
                     case SPACE -> {
                         // stick falls
+                        minHeightStick = pillar2.getX() - pillar1.getWidth() - stickBeingUsed.getHeight();
+                        maxHeightStick = pillar2.getX() + pillar2.getWidth() - pillar1.getWidth() - stickBeingUsed.getHeight();
+
                         stickBeingUsed.getTransforms().add(new Rotate(90,stickBeingUsed.getX(),stickBeingUsed.getY()+stickBeingUsed.getHeight()-5));
+
                         // Applying translational motion to the player
                         TranslateTransition move = new TranslateTransition(Duration.seconds(1), player.getImageView());
                         move.setByX(stickBeingUsed.getHeight()); // Adjust this value based on how far you want the player to move
@@ -156,32 +176,14 @@ public class HelloController {
 
                         move.setOnFinished(event -> {
                             // check if character falls
-                            double stickEndX = stickBeingUsed.getX() + stickBeingUsed.getHeight();
-
-                            if ((stickEndX > pillar2.getX() + pillar2.getWidth()) || (stickEndX < pillar2.getX())){
+                            if ((0 < minHeightStick || (0 > maxHeightStick))){
                                 // player falls down
                                 TranslateTransition fall = new TranslateTransition(Duration.seconds(0.25), player.getImageView());
                                 fall.setByY(500); // Adjust this value based on how far you want the player to fall
                                 fall.play();
-                                // stick moves another 90 degrees
-                                stickBeingUsed.getTransforms().add(new Rotate(90,secondPillar.getLayoutX()+secondPillar.getWidth(),359));
-
-
-                                // pillar 2 becomes pillar 1
-                                pillar1 = pillar2;
-
-                                // pillar 3 becomes pillar 2
-                                pillar2 = pillar3;
-
-                                // pillar 3 (out of scene initially)
-                                Rectangle newPillar = pillarGenerator.newPillar();
-                                newPillar.setHeight(500);
-                                newPillar.setWidth(60 + (Math.random()*130));
-                                newPillar.setX(1400); // 15px = minDist bw 2 pillars; 215px = maxDist bw 2 pillars
-                                newPillar.setY(357);
-                                newPillar.setFill(Color.BLACK);
-                                pillar3 = (Pillar) newPillar;
-                                groot.getChildren().add(newPillar);
+                                // stick disappears
+                                stickBeingUsed.setHeight(0);
+                                stickBeingUsed.setWidth(0);
 
 
                                 fall.setOnFinished(event2 -> {
@@ -193,10 +195,16 @@ public class HelloController {
                                 });
 
                             } else {
+                                minHeightStick = pillar3.getX() - pillar2.getWidth() - stickBeingUsed.getHeight();
+                                maxHeightStick = pillar3.getX() + pillar3.getWidth() - pillar2.getWidth() - stickBeingUsed.getHeight();
+
                                 // moves the character some extra
                                 TranslateTransition move2 = new TranslateTransition(Duration.seconds(0.58),player.getImageView());
                                 move2.setByX((pillar2.getX()+pillar2.getWidth()-stickBeingUsed.getHeight()-stickBeingUsed.getX()-player.getImageView().getFitWidth()-10));
                                 move2.play();
+
+//                                minHeightStick = pillar2.getX() - pillar1.getWidth();
+//                                maxHeightStick = pillar2.getX() + pillar2.getWidth() - pillar1.getWidth();
 
                                 move2.setOnFinished(event1 -> {
                                     // character, pillar and pillar1 move to the left
@@ -207,21 +215,26 @@ public class HelloController {
                                     TranslateTransition move3 = new TranslateTransition(Duration.seconds(0.4), player.getImageView());
                                     move3.setByX(-pillar2.getX());
                                     move3.play();
+//                                    TranslateTransition move7 = new TranslateTransition(Duration.seconds(0.4), pillar3);
+//                                    move7.setByX(-1400+195+30 + (Math.random()*200));
+//                                    move7.play();
                                     TranslateTransition move4 =  new TranslateTransition(Duration.seconds(0.4), pillar2);
                                     move4.setByX(-pillar2.getX());
                                     move4.play();
                                     TranslateTransition move6 = new TranslateTransition(Duration.seconds(0.4),pillar1);
                                     move6.setByX(-pillar2.getX());
                                     move6.play();
-                                    // at the same pt in time, pillar2 moves in from the left
-                                    TranslateTransition move5  = new TranslateTransition(Duration.seconds(0.4), pillar3);
-                                    move5.setByX(-pillar3.getX()+(195+(15 + (Math.random()*200))));
-                                    move5.play();
 
-                                    move5.setOnFinished(event2 -> {
+//                                    boolean fall = (pillar3.getWidth());
+                                    // at the same pt in time, pillar3 moves in from the left
+                                    move6.setOnFinished(event2 -> {
+                                        TranslateTransition move5  = new TranslateTransition(Duration.seconds(0.4), pillar3);
+                                        move5.setByX(-1400+195+(15 + (Math.random()*200)));
+                                        move5.play();
+
                                         // generate new stick
                                         Rectangle stick = stickGenerator.newStick();
-                                        stick.setX(secondPillar.getLayoutX()+secondPillar.getWidth());
+                                        stick.setX(0+secondPillar.getWidth());
                                         stick.setY(361);
                                         stick.setHeight(0);
                                         stick.setWidth(5);
@@ -229,7 +242,7 @@ public class HelloController {
                                         stickBeingUsed = (Stick) stick;
                                         groot.getChildren().add(stickBeingUsed);
 
-                                        // pillar 3 (out of scene initially)
+                                        // pillar 4 (out of scene initially)
                                         Rectangle newPillar = pillarGenerator.newPillar();
                                         newPillar.setHeight(500);
                                         newPillar.setWidth(60 + (Math.random()*130));
@@ -241,13 +254,7 @@ public class HelloController {
                                         Pillar tempvar = pillar2;
 
                                         pillar2 = pillar3;
-
-                                        // pillar 2 becomes pillar 1
                                         pillar1 = tempvar;
-
-                                        // pillar 3 becomes pillar 2
-
-                                        pillar3 = (Pillar) newPillar;
                                     });
 
 
