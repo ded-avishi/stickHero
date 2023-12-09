@@ -31,6 +31,16 @@ public class HelloController {
     private Scene scene;
     private Parent root;
 
+    public void setStage(Stage stg){
+        this.stage=stg;
+    }
+
+    public void whenFail(Stage stg) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        scene=new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void switchToScene1(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -137,7 +147,7 @@ public class HelloController {
                 switch (keyEvent.getCode()){
                     case SPACE -> {
                         // stick falls
-                        stickBeingUsed.getTransforms().add(new Rotate(90,160,356));
+                        stickBeingUsed.getTransforms().add(new Rotate(90,stickBeingUsed.getX(),stickBeingUsed.getY()+stickBeingUsed.getHeight()-5));
                         // Applying translational motion to the player
                         TranslateTransition move = new TranslateTransition(Duration.seconds(1), player.getImageView());
                         move.setByX(stickBeingUsed.getHeight()); // Adjust this value based on how far you want the player to move
@@ -154,7 +164,7 @@ public class HelloController {
                                 fall.setByY(500); // Adjust this value based on how far you want the player to fall
                                 fall.play();
                                 // stick moves another 90 degrees
-                                stickBeingUsed.getTransforms().add(new Rotate(90,163,359));
+                                stickBeingUsed.getTransforms().add(new Rotate(90,secondPillar.getLayoutX()+secondPillar.getWidth(),359));
 
 
                                 // pillar 2 becomes pillar 1
@@ -175,7 +185,11 @@ public class HelloController {
 
 
                                 fall.setOnFinished(event2 -> {
-                                    // switch to game over screen (replay + home + show highScore)
+                                    try {
+                                        whenFail(stage);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 });
 
                             } else {
@@ -215,19 +229,21 @@ public class HelloController {
                                         stickBeingUsed = (Stick) stick;
                                         groot.getChildren().add(stickBeingUsed);
 
-                                        // pillar 4 (out of scene initially)
+                                        // pillar 3 (out of scene initially)
                                         Rectangle newPillar = pillarGenerator.newPillar();
                                         newPillar.setHeight(500);
                                         newPillar.setWidth(60 + (Math.random()*130));
                                         newPillar.setX(1400); // 15px = minDist bw 2 pillars; 215px = maxDist bw 2 pillars
                                         newPillar.setY(357);
                                         newPillar.setFill(Color.BLACK);
-//                                        pillar3 = (Pillar) newPillar;
+                                        pillar3 = (Pillar) newPillar;
                                         groot.getChildren().add(newPillar);
+                                        Pillar tempvar = pillar2;
+
                                         pillar2 = pillar3;
 
                                         // pillar 2 becomes pillar 1
-                                        pillar1 = pillar2;
+                                        pillar1 = tempvar;
 
                                         // pillar 3 becomes pillar 2
 

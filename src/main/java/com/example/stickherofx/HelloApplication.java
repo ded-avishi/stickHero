@@ -16,6 +16,8 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         Parent root=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
         Scene scene = new Scene(root);
+        HelloController controller=new HelloController();
+        controller.setStage(stage);
         stage.setTitle("StickHero");
         stage.setScene(scene);
         stage.show();

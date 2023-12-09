@@ -15,12 +15,6 @@
             <Image url="@../../../playbg.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe870" height="125.0" layoutX="-5.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="175.0" />
-      <ImageView fitHeight="56.0" fitWidth="102.0" layoutX="75.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Asset 1sheep.png" />
-         </image>
-      </ImageView>
       <Label layoutX="431.0" layoutY="94.0" text="0">
          <font>
             <Font name="Impact" size="40.0" />
@@ -36,6 +30,5 @@
             <Font name="Impact" size="27.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe870" height="125.0" layoutX="241.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
    </children>
 </AnchorPane>
