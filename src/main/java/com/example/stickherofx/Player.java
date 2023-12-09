@@ -1,9 +1,11 @@
 package com.example.stickherofx;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Translate;
 
 public class Player extends Point {
     private PlayerState state;
+    private boolean flipState;
     private ImageView imageView;
     private int height;
     private int width;
@@ -32,6 +34,20 @@ public class Player extends Point {
 
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
+    }
+
+    public void flip(){
+        if (this.flipState){
+            this.flipState = false;
+            this.imageView.setY(315);
+            this.imageView.setScaleY(-0.25);
+            this.imageView.getTransforms().add(new Translate(0,0));
+        } else{
+            this.flipState = true;
+            this.imageView.setY(280);
+            this.imageView.setScaleY(0.25);
+            this.imageView.getTransforms().add(new Translate(0,0));
+        }
     }
 
     public int getHeight() {

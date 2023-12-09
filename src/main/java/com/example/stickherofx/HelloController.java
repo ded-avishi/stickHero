@@ -21,7 +21,7 @@ import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -30,6 +30,7 @@ public class HelloController {
     private Stick stickBeingUsed;
     private double minHeightStick;
     private double maxHeightStick;
+    private ImageView imgvu;
     private Pillar pillar1;
     private Pillar pillar2;
     private Pillar pillar3;
@@ -62,9 +63,9 @@ public class HelloController {
         scene=new Scene(root);
 
         String musicFile = "src/main/resources/Desert Theme.mp3";
-
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
 
         // player spawn -----------------------------
@@ -150,17 +151,7 @@ public class HelloController {
                                               // pausebutton implementation
                                           }
                                           case K -> {
-                                              // Flip the character vertically about the stick
-//                                              double flipFactor = player.getImageView().getScaleY() * -1;
-//                                              player.getImageView().setScaleY(flipFactor);
-//
-//                                              // Adjust the character position to be below the stick
-//                                              if (flipFactor < 0) {
-//                                                  player.getImageView().setY(stickBeingUsed.getY() + stickBeingUsed.getHeight());
-//                                              } else {
-//                                                  // If not flipped, set the character's position above the stick
-//                                                  player.getImageView().setY(stickBeingUsed.getY() - player.getImageView().getFitHeight());
-//                                              }
+                                              player.flip();
 
                                           }
                                       }
@@ -175,6 +166,7 @@ public class HelloController {
                         // stick falls
                         minHeightStick = pillar2.getX() - pillar1.getWidth() - stickBeingUsed.getHeight();
                         maxHeightStick = pillar2.getX() + pillar2.getWidth() - pillar1.getWidth() - stickBeingUsed.getHeight();
+                        System.out.println(pillar2.getX()+" "+pillar2.getWidth()+" "+pillar1.getWidth()+" "+stickBeingUsed.getHeight()+" "+stickBeingUsed.getWidth());
 
                         stickBeingUsed.getTransforms().add(new Rotate(90,stickBeingUsed.getX(),stickBeingUsed.getY()+stickBeingUsed.getHeight()-5));
 
@@ -205,8 +197,8 @@ public class HelloController {
                                 });
 
                             } else {
-                                minHeightStick = pillar3.getX() - pillar2.getWidth() - stickBeingUsed.getHeight();
-                                maxHeightStick = pillar3.getX() + pillar3.getWidth() - pillar2.getWidth() - stickBeingUsed.getHeight();
+//                                minHeightStick = pillar3.getX() - pillar2.getWidth() - stickBeingUsed.getHeight();
+//                                maxHeightStick = pillar3.getX() + pillar3.getWidth() - pillar2.getWidth() - stickBeingUsed.getHeight();
 
                                 // moves the character some extra
                                 TranslateTransition move2 = new TranslateTransition(Duration.seconds(0.58),player.getImageView());
@@ -220,31 +212,25 @@ public class HelloController {
                                     // character, pillar and pillar1 move to the left
                                     System.out.println(pillar1.getX() + " " + pillar2.getX() + " " + pillar3.getX());
                                     TranslateTransition move1 = new TranslateTransition(Duration.seconds(0.4),stickBeingUsed);
-                                    move1.setByX(-pillar2.getX());
+                                    move1.setByX(-pillar2.getX()-pillar2.getWidth()+pillar1.getWidth());
                                     move1.play();
                                     TranslateTransition move3 = new TranslateTransition(Duration.seconds(0.4), player.getImageView());
-                                    move3.setByX(-pillar2.getX());
+                                    move3.setToX(22);
                                     move3.play();
 //                                    TranslateTransition move7 = new TranslateTransition(Duration.seconds(0.4), pillar3);
 //                                    move7.setByX(-1400+195+30 + (Math.random()*200));
 //                                    move7.play();
                                     TranslateTransition move4 =  new TranslateTransition(Duration.seconds(0.4), pillar2);
-                                    move4.setByX(-pillar2.getX());
+                                    move4.setByX(-pillar2.getX()-pillar2.getWidth()+pillar1.getWidth());
                                     move4.play();
-                                    TranslateTransition move6 = new TranslateTransition(Duration.seconds(0.4),pillar1);
-                                    move6.setByX(-pillar2.getX());
-                                    move6.play();
 
 //                                    boolean fall = (pillar3.getWidth());
                                     // at the same pt in time, pillar3 moves in from the left
-                                    move6.setOnFinished(event2 -> {
-                                        TranslateTransition move5  = new TranslateTransition(Duration.seconds(0.4), pillar3);
-                                        move5.setByX(-1400+195+(15 + (Math.random()*200)));
-                                        move5.play();
+                                    move4.setOnFinished(event2 -> {
 
                                         // generate new stick
                                         Rectangle stick = stickGenerator.newStick();
-                                        stick.setX(0+secondPillar.getWidth());
+                                        stick.setX(160);
                                         stick.setY(361);
                                         stick.setHeight(0);
                                         stick.setWidth(5);
@@ -252,19 +238,17 @@ public class HelloController {
                                         stickBeingUsed = (Stick) stick;
                                         groot.getChildren().add(stickBeingUsed);
 
-                                        // pillar 4 (out of scene initially)
+                                        // pillar 3
                                         Rectangle newPillar = pillarGenerator.newPillar();
                                         newPillar.setHeight(500);
                                         newPillar.setWidth(60 + (Math.random()*130));
-                                        newPillar.setX(1400); // 15px = minDist bw 2 pillars; 215px = maxDist bw 2 pillars
+                                        newPillar.setX(195+(30 + (Math.random()*200))); // 15px = minDist bw 2 pillars; 215px = maxDist bw 2 pillars
                                         newPillar.setY(357);
                                         newPillar.setFill(Color.BLACK);
                                         pillar3 = (Pillar) newPillar;
                                         groot.getChildren().add(newPillar);
-                                        Pillar tempvar = pillar2;
-
+                                        pillar1 = pillar2;
                                         pillar2 = pillar3;
-                                        pillar1 = tempvar;
                                     });
 
 
@@ -305,9 +289,5 @@ public class HelloController {
         scene=new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void saveProgress(ActionEvent event) throws IOException{
-
     }
 }
