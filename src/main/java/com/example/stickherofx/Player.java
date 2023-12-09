@@ -1,7 +1,10 @@
 package com.example.stickherofx;
 
+import javafx.scene.image.ImageView;
+
 public class Player extends Point {
     private PlayerState state;
+    private ImageView imageView;
     private int height;
     private int width;
     private double x;
@@ -9,6 +12,11 @@ public class Player extends Point {
     private double speed;
     private double fallSpeed;
     private int cherriesCount;
+    private int Score = 0 ;
+
+    public Player(ImageView imgvu) {
+        this.imageView = imgvu;
+    }
 
     public PlayerState getState() {
         return state;
@@ -16,6 +24,14 @@ public class Player extends Point {
 
     public void setState(PlayerState state) {
         this.state = state;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
     public int getHeight() {

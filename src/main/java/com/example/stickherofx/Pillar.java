@@ -1,6 +1,8 @@
 package com.example.stickherofx;
 
-public class Pillar extends Point{
+import javafx.scene.shape.Rectangle;
+
+public class Pillar extends Rectangle {
     private double y;
     private double speed;
     private int height;
@@ -11,13 +13,13 @@ public class Pillar extends Point{
     public Pillar() {
     }
 
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
+//    public double getY() {
+//        return y;
+//    }
+//
+//    public void setY(double y) {
+//        this.y = y;
+//    }
 
     public double getSpeed() {
         return speed;
@@ -27,9 +29,9 @@ public class Pillar extends Point{
         this.speed = speed;
     }
 
-    public int getHeight() {
-        return height;
-    }
+//    public int getHeight() {
+//        return height;
+//    }
 
     public void setHeight(int height) {
         this.height = height;
