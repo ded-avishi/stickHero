@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickherofx.HelloController">
+    <children>
+        <ImageView fitHeight="858.0" fitWidth="1287.0" layoutX="-238.0" layoutY="-197.0" opacity="0.5" preserveRatio="true">
+            <image>
+                <Image url="@../../../playbg.jpg" />
+            </image>
+        </ImageView>
+        <Button layoutX="278.0" layoutY="254.0" mnemonicParsing="false" onAction="#switchToScene2" prefHeight="71.0" prefWidth="142.0" style="-fx-background-color: #cc3300; -fx-background-radius: 100;" text="REPLAY" textFill="#fcfcfc">
+            <font>
+                <Font name="Impact" size="26.0" />
+            </font>
+        </Button>
+        <Button layoutX="436.0" layoutY="254.0" mnemonicParsing="false" onAction="#switchToScene1" prefHeight="71.0" prefWidth="142.0" style="-fx-background-color: #cc3300; -fx-background-radius: 100;" text="HOME" textFill="#fcfcfc">
+            <font>
+                <Font name="Impact" size="26.0" />
+            </font>
+        </Button>
+        <Text layoutX="316.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE">
+            <font>
+                <Font name="Impact" size="26.0" />
+            </font>
+        </Text>
+        <Text layoutX="474.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE">
+            <font>
+                <Font name="Impact" size="26.0" />
+            </font>
+        </Text>
+        <Text layoutX="300.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR">
+            <font>
+                <Font name="Impact" size="47.0" />
+            </font>
+        </Text>
+        <Text layoutX="461.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HIGH">
+            <font>
+                <Font name="Impact" size="47.0" />
+            </font>
+        </Text>
+        <Text layoutX="336.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
+            <font>
+                <Font name="Impact" size="47.0" />
+            </font>
+        </Text>
+        <Text layoutX="485.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16">
+            <font>
+                <Font name="Impact" size="47.0" />
+            </font>
+        </Text>
+    </children>
+
+</AnchorPane>

@@ -17,7 +17,11 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.util.Duration;
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -38,7 +42,7 @@ public class HelloController {
     }
 
     public void whenFail(Stage stg) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ifFail.fxml")));
         scene=new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -56,6 +60,12 @@ public class HelloController {
         Parent root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         scene=new Scene(root);
+
+        String musicFile = "src/main/resources/Desert Theme.mp3";
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
 
         // player spawn -----------------------------
         Image image = new Image("Asset 1sheep.png");
@@ -295,5 +305,9 @@ public class HelloController {
         scene=new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void saveProgress(ActionEvent event) throws IOException{
+
     }
 }
