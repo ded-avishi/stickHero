@@ -15,11 +15,6 @@
             <Image url="@../../../playbg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="431.0" layoutY="94.0" text="0">
-         <font>
-            <Font name="Impact" size="40.0" />
-         </font>
-      </Label>
       <Label layoutX="282.0" layoutY="172.0" prefHeight="94.0" prefWidth="332.0" text="Hold your finger on screen to stretch out the stick" textFill="#e7e7e7">
          <font>
             <Font name="Agency FB" size="20.0" />

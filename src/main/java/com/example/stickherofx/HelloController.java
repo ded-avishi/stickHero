@@ -12,10 +12,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import java.io.File;
 import javafx.scene.media.Media;
@@ -30,13 +32,13 @@ public class HelloController {
     private Stick stickBeingUsed;
     private double minHeightStick;
     private double maxHeightStick;
-    private ImageView imgvu;
     private Pillar pillar1;
     private Pillar pillar2;
     private Pillar pillar3;
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Text highscore;
 
     public void setStage(Stage stg){
         this.stage=stg;
@@ -197,6 +199,18 @@ public class HelloController {
                                 });
 
                             } else {
+                                groot.getChildren().remove(highscore);
+                                player.setScore(player.getScore()+1);
+                                String temp=Integer.toString(player.getScore());
+                                Text text=new Text(temp);
+                                text.setFont(Font.font("Impact",40));
+                                text.setY(130);
+                                text.setX(431);
+                                text.setFill(Color.BLACK);
+                                text.toFront();
+                                highscore=text;
+                                groot.getChildren().add(highscore);
+
 //                                minHeightStick = pillar3.getX() - pillar2.getWidth() - stickBeingUsed.getHeight();
 //                                maxHeightStick = pillar3.getX() + pillar3.getWidth() - pillar2.getWidth() - stickBeingUsed.getHeight();
 
