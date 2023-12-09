@@ -16,12 +16,12 @@ public class Player extends Point {
     private int cherriesCount;
     private int Score = 0 ;
 
-    public boolean isFlipState() {
-        return flipState;
+    public Player(ImageView imgvu) {
+        this.imageView = imgvu;
     }
 
-    public void setFlipState(boolean flipState) {
-        this.flipState = flipState;
+    public PlayerState getState() {
+        return state;
     }
 
     public int getScore() {
@@ -30,14 +30,6 @@ public class Player extends Point {
 
     public void setScore(int score) {
         Score = score;
-    }
-
-    public Player(ImageView imgvu) {
-        this.imageView = imgvu;
-    }
-
-    public PlayerState getState() {
-        return state;
     }
 
     public void setState(PlayerState state) {

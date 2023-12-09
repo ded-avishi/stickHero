@@ -39,6 +39,9 @@ public class HelloController {
     private Scene scene;
     private Parent root;
     private Text highscore;
+    private Cherry cherry;
+    private boolean cherryCollected = false;
+
 
     public void setStage(Stage stg){
         this.stage=stg;
@@ -95,6 +98,7 @@ public class HelloController {
         this.pillar1 = (Pillar) firstPillar;
         groot.getChildren().add(firstPillar);
 
+
         // pillar 2
         Rectangle secondPillar;
         secondPillar = pillarGenerator.newPillar();
@@ -116,6 +120,20 @@ public class HelloController {
         this.pillar3 = (Pillar) thirdPillar;
         groot.getChildren().add(thirdPillar);
         //----------------------------------------------
+
+        // new cherry here spawns
+        Image cherryy = new Image("prs.png");
+        ImageView imgCherry = new ImageView(cherryy);
+        imgCherry.setX((Math.random()*90)+40);
+        imgCherry.setY(240);
+        imgCherry.setPreserveRatio(true); // or false idk
+        // Scale the ImageView by 0.5x
+        imgCherry.setScaleX(0.15); // Scale along the x-axis
+        imgCherry.setScaleY(0.15); // Scale along the y-axis
+        // player object with the above imageview
+        Cherry cherry1 = new Cherry(imgCherry);
+        cherry = cherry1;
+        imgCherry.toFront();
 
 
 
@@ -149,9 +167,6 @@ public class HelloController {
                                               stickBeingUsed.setHeight(stickBeingUsed.getHeight()+5);
                                               stickBeingUsed.setY(stickBeingUsed.getY() - 5); // Move the rectangle upwards
                                           }
-                                          case ESCAPE -> {
-                                              // pausebutton implementation
-                                          }
                                           case K -> {
                                               player.flip();
 
@@ -179,6 +194,9 @@ public class HelloController {
 
 
                         move.setOnFinished(event -> {
+                            // cherry invisible
+                            cherry.getImageView().setVisible(false);
+
                             // check if character falls
                             if ((0 < minHeightStick || (0 > maxHeightStick))){
                                 // player falls down
@@ -252,6 +270,22 @@ public class HelloController {
                                         stickBeingUsed = (Stick) stick;
                                         groot.getChildren().add(stickBeingUsed);
 
+                                        // generate new cherry
+//                                        // new cherry here spawns
+//                                        Image cherryyy = new Image("prs.png");
+//                                        ImageView imgCherry1 = new ImageView(cherryyy);
+//                                        imgCherry1.setX((Math.random()*90)+40);
+//                                        imgCherry1.setY(240);
+//                                        imgCherry1.setPreserveRatio(true); // or false idk
+//                                        // Scale the ImageView by 0.5x
+//                                        imgCherry1.setScaleX(0.15); // Scale along the x-axis
+//                                        imgCherry1.setScaleY(0.15); // Scale along the y-axis
+//                                        // player object with the above imageview
+//                                        Cherry cherry1 = new Cherry(imgCherry1);
+//                                        cherry = cherry1;
+                                        cherry.setX((Math.random()*90)+70);
+                                        cherry.getImageView().setVisible(true);
+
                                         // pillar 3
                                         Rectangle newPillar = pillarGenerator.newPillar();
                                         newPillar.setHeight(500);
@@ -282,12 +316,35 @@ public class HelloController {
 
         // Add the various nodes to the Group
         groot.getChildren().add(player.getImageView());
+        groot.getChildren().add(cherry1.getImageView());
 
         // Add the Group to the root of the Scene
         ((Pane) root).getChildren().add(groot);
 
         // Add the Scene to the Stage
         stage.setScene(scene);
+
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    // Check if bounding boxes intersect
+                    if (player.getImageView().getBoundsInParent().intersects(cherry.getImageView().getBoundsInParent())) {
+                        if(!cherryCollected) {
+                            cherryCollected = true;
+                            System.out.println("Collision detected!");
+                            // Handle collision logic here
+                            player.setCherriesCount(player.getCherriesCount() + 1);
+                            player.setScore(player.getScore() + 1); // You can adjust the score increment as needed
+                            // Display the updated score (you can customize this part)
+                            String scoreText = "Score: " + player.getScore();
+                            System.out.println(scoreText);
+                        }
+                    }
+                }
+            };
+
+            // Start the AnimationTimer
+            timer.start();
         stage.show();
     }
     public void switchToChooseChar(ActionEvent event) throws IOException {
