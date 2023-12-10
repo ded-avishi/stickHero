@@ -27,6 +27,11 @@ class Point {
         this.y = y;
     }
 
+    public double calculateLength(Point A){
+        double a = ((x - A.getX())*(x - A.getX())) + ((y - A.getY())*(y - A.getY()));
+        return (Math.sqrt(a));
+    }
+
     public void setY(double y) {
         this.y = y;
     }
