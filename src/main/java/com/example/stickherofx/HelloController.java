@@ -12,6 +12,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -41,7 +45,20 @@ public class HelloController {
     private Text highscore;
     private Cherry cherry;
     private boolean cherryCollected = false;
+    private int score=0;
+    public int getScore(){
+        return score;
+    }
+    public void setScore(int scr){
+        score=scr;
+    }
 
+    public void whenSave(Stage stg) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        scene=new Scene(root);
+        stg.setScene(scene);
+        stg.show();
+    }
 
     public void setStage(Stage stg){
         this.stage=stg;
@@ -218,8 +235,8 @@ public class HelloController {
 
                             } else {
                                 groot.getChildren().remove(highscore);
-                                player.setScore(player.getScore()+1);
-                                String temp=Integer.toString(player.getScore());
+                                setScore(getScore()+1);
+                                String temp=Integer.toString(getScore());
                                 Text text=new Text(temp);
                                 text.setFont(Font.font("Impact",40));
                                 text.setY(130);
@@ -360,5 +377,35 @@ public class HelloController {
         scene=new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void saveProgress(ActionEvent event) throws IOException{
+        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+        ObjectOutputStream out=null;
+        try{
+            out=new ObjectOutputStream(new FileOutputStream("src/main/resources/savedGame.txt"));
+            out.writeObject(getScore());
+        }
+        finally{
+            out.close();
+        }
+        try {
+            whenSave(stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void loadProgress(ActionEvent event) {
+        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("src/main/resources/savedGame.txt"))) {
+            setScore((int) inputStream.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            switchToScene2(event);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
