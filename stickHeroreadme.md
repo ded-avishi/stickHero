@@ -46,6 +46,8 @@ Root Directory: com.example.stickherofx
 5. Auto-Revive: If you have at least 5 cherries, you can revive after a fall.
 
 
+
+
 ## OOPS Patterns Implemented
 - **DESIGN PATTERNS:**
     - Singleton: The StickGenerator and PillarGenerator classes ensure only one instance exists for generating sticks and pillars.
@@ -62,6 +64,7 @@ Root Directory: com.example.stickherofx
 - **POLYMORPHISM** Used in various places for method overriding and flexibility.
 - **Basic Principles like Encapsulation etc.** are followed throughout.
 - **Collection Frameworks** have been implemented for managing game objects and states.
+
 
 
 Note: All media used are royalty free, and it is played with the help of an https link.
